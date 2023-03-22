@@ -1,0 +1,15 @@
+.content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.found-book {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  width: 100%;
+  @media (max-width: 540px) {
+    font-size: 16px;
+  }
+}

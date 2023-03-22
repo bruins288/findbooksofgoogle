@@ -1,0 +1,42 @@
+.header {
+  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(0, 0, 0, 0.8)),
+    url(../../public/img/m_background-search-information.png);
+  background-repeat: no-repeat;
+  -moz-background-size: 100%; /* Firefox 3.6+ */
+  -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+  -o-background-size: 100%; /* Opera 9.6+ */
+  background-size: 100%; /* Современные браузеры */
+
+  h1 {
+    text-align: center;
+    padding: 25px 0px 10px;
+    color: white;
+    @media (min-width: 375px) and (max-width: 1024px) {
+      font-size: calc(20px + (40 - 20) * ((100vw - 393px) / (1024 - 393)));
+    }
+  }
+}
+
+.sort {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 20px;
+  margin: 15px;
+  &__category {
+    margin-left: 20%;
+    @media (min-width: 1480px) {
+      margin-left: 24%;
+    }
+    @media (max-width: 540px) {
+      margin-left: 5%;
+      margin-bottom: 5px;
+    }
+  }
+  &__type {
+    margin-left: 15%;
+    @media (min-width: 1480px) {
+      margin-left: 25%;
+    }
+  }
+}
