@@ -3,8 +3,6 @@ const typeQuery = {
   paramsQuery: "q",
   paramCategory: "subject",
   paramSort: "orderBy",
-  paramStartPages: "startIndex",
-  paramEndPages: "maxResults ",
 };
 
 export default class FindBooksAPI {
@@ -36,7 +34,7 @@ export default class FindBooksAPI {
     let booksJson = await response.json();
     return booksJson;
   }
-  async getFindBooks() {
+  async fetchFindBooksAsyncAwait() {
     try {
       const findBooks = {
         totalBooks: 0,
