@@ -13,7 +13,9 @@ const SortType = ({ list }) => {
         className={styles.sortSelect}
       >
         {list.items.map((item, index) => (
-          <option value={index}>{item.name}</option>
+          <option key={item.name} value={index}>
+            {item.name}
+          </option>
         ))}
       </select>
     </div>
