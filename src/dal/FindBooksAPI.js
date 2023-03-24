@@ -1,13 +1,22 @@
 const BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+const MAX_RESULT = 30;
+
 const typeQuery = {
   paramsQuery: "q",
+  startIndex: "startIndex",
   paramCategory: "subject",
   paramSort: "orderBy",
+  maxResults: "maxResults",
 };
 
 export default class FindBooksAPI {
   #url = new URL(BASE_URL);
-  constructor(searchParams, searchCategory = null, searchFiltered = null) {
+  constructor(
+    searchParams,
+    startIndex,
+    searchCategory = null,
+    searchFiltered = null
+  ) {
     this.#url.searchParams.set(
       typeQuery.paramsQuery,
       this._getSearchParams(searchParams)
@@ -18,6 +27,8 @@ export default class FindBooksAPI {
     if (searchFiltered) {
       this.#url.searchParams.set(typeQuery.paramSort, searchFiltered);
     }
+    this.#url.searchParams.set(typeQuery.startIndex, startIndex);
+    this.#url.searchParams.set(typeQuery.maxResults, MAX_RESULT);
   }
   get url() {
     return this.#url;
@@ -38,11 +49,11 @@ export default class FindBooksAPI {
     return booksJson;
   }
   async fetchFindBooksAsyncAwait() {
+    const findBooks = {
+      totalBooks: 0,
+      infoBooks: [],
+    };
     try {
-      const findBooks = {
-        totalBooks: 0,
-        infoBooks: [],
-      };
       let { items, totalItems } = await this._getFindBooksJSON();
       findBooks.totalBooks = totalItems;
       findBooks.infoBooks = items.map((item) => {
@@ -60,15 +71,6 @@ export default class FindBooksAPI {
           title: item.volumeInfo.title ?? "no title",
         };
       });
-
-      for (let i = 0; i < findBooks.infoBooks.length; i++) {
-        for (let j = 1; j < findBooks.infoBooks.length - 1; j++) {
-          if (findBooks.infoBooks[i].id === findBooks.infoBooks[j].id) {
-            findBooks.infoBooks.splice(i, 1);
-            findBooks.totalBooks--;
-          }
-        }
-      }
 
       return findBooks;
     } catch (error) {

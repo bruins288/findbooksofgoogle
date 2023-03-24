@@ -25,15 +25,17 @@ function BooksCard({
         />
       </div>
       <div className={styles.booksCard_info}>
-        <p className={styles.booksDetail}>
+        <h4>
           {categories.map((category) => (
             <span key={category}>{category}</span>
           ))}
-          <strong>{title}</strong>
+        </h4>
+        <p className={styles.booksCard_info_title}>{title}</p>
+        <p className={styles.booksCard_info_dop}>
           {authors.map((author) => (
-            <span key={author}>{author}</span>
+            <span key={author}>{author + ", "}</span>
           ))}
-          <span>{publishedDate}</span>
+          <span>published:{publishedDate}</span>
         </p>
       </div>
     </div>

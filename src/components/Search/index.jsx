@@ -13,6 +13,7 @@ const Search = observer(() => {
     if (searchInput.length > 1) {
       findBooksStore.setUrlSearch(
         searchInput.trim().replace(/ +/g, " "),
+        0,
         findBooksStore.searchCategory,
         findBooksStore.searchFiltered
       );

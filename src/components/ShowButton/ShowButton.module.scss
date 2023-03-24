@@ -1,0 +1,60 @@
+@import "../../scss/variables.scss";
+
+.bookCardBottom {
+  display: block;
+  margin: 20px 0 20px;
+}
+.button {
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 10px 20px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  border: 1px solid transparent;
+  @include noselect();
+  path,
+  svg {
+    transition: all 0.15s ease-in-out;
+  }
+  &_outline {
+    background-color: #ffffff;
+    border-color: rgb(166, 165, 165);
+    &,
+    span {
+      color: gray;
+    }
+    svg {
+      path {
+        fill: gray;
+      }
+    }
+    &:hover {
+      background-color: gray;
+
+      &,
+      span {
+        color: #ffffff;
+      }
+
+      svg {
+        path {
+          fill: #ffffff;
+        }
+      }
+    }
+  }
+  &_add {
+    svg {
+      margin-right: 8px;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 16px;
+      margin-right: 5px;
+    }
+  }
+}

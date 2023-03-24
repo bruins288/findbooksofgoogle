@@ -17,10 +17,13 @@ export const status = {
 };
 
 export default class FindBooksStore {
-  findBooksList = {};
+  findBooksList = { totalBooks: 0, infoBooks: [] };
   query = "";
   searchCategory = null;
   searchFiltered = null;
+  startIndex = 0;
+  isAddDataLoading = false;
+
   status = status.WAIT;
 
   constructor() {
@@ -29,20 +32,30 @@ export default class FindBooksStore {
       query: observable,
       searchCategory: observable,
       searchFiltered: observable,
+      startIndex: observable,
       status: observable,
+      isAddDataLoading: observable,
       setFindBooks: action,
       setUrlSearch: action,
       setStatusWait: action,
       setStatusLoading: action,
       setStatusSuccess: action,
       setStatusError: action,
+      incrementStartIndex: action,
+      setDataLoading: action,
     });
   }
   setFindBooks = (apiData) => {
     this.findBooksList = apiData;
   };
-  setUrlSearch(query, searchCategory = null, searchFiltered = null) {
-    this.query = query + "+" + searchCategory;
+  setUrlSearch(
+    query,
+    startIndex = 0,
+    searchCategory = null,
+    searchFiltered = null
+  ) {
+    this.query = query;
+    this.startIndex = startIndex;
     this.searchCategory = searchCategory;
     this.searchFiltered = searchFiltered;
   }
@@ -59,9 +72,17 @@ export default class FindBooksStore {
     this.status = status.ERROR;
   }
 
+  incrementStartIndex() {
+    this.startIndex += 1;
+  }
+  setDataLoading(isLoading) {
+    console.log(isLoading);
+    this.isAddDataLoading = isLoading;
+  }
   getFindBooksAsync = async () => {
     const dataAPI = new FindBooksAPI(
       this.query,
+      this.startIndex,
       this.searchCategory,
       this.searchFiltered
     );
@@ -69,9 +90,17 @@ export default class FindBooksStore {
       this.setStatusLoading();
       const data = await dataAPI.fetchFindBooksAsyncAwait();
       runInAction(() => {
-        this.findBooksList = data;
+        if (!this.isAddDataLoading) {
+          this.findBooksList = data;
+        } else {
+          this.findBooksList.infoBooks = [
+            ...this.findBooksList.infoBooks,
+            ...data.infoBooks,
+          ];
+        }
       });
       this.setStatusSuccess();
+      this.setDataLoading(false);
     } catch (error) {
       console.log(error.message);
       this.setStatusError();

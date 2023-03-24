@@ -4,7 +4,7 @@
   width: 150px;
   box-sizing: content-box;
   padding: 25px 25px 10px 25px;
-  background-color: rgb(184, 184, 184);
+  background-color: rgb(207, 207, 207);
   height: 18rem;
 
   &_img {
@@ -14,22 +14,40 @@
     padding-left: 20px;
   }
   &_info {
-    margin-top: 25px;
+    margin-top: 18px;
     padding: 0px;
-    .booksDetail {
-      span:first-child,
-      strong {
-        display: block;
-        font-size: 12px;
-        margin: 3px;
-      }
-      span {
-        opacity: 0.4;
-        text-align: center;
-        font-size: 12px;
-      }
+    text-align: center;
+    line-height: 14px;
+    h4 {
+      display: inline-block;
+      font-size: 14px;
+      border-bottom: 2px solid gray;
+      opacity: 0.6;
+      margin-bottom: 5px;
+    }
+    &_title,
+    &_dop {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    &_title {
+      text-align: left;
+      max-height: 137px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+    &_dop {
+      text-align: left;
+      opacity: 0.8;
+      font-size: 12px;
+      margin-top: 5px;
       span:last-child {
+        margin-top: 5px;
         display: block;
+        opacity: 0.5;
       }
     }
   }
