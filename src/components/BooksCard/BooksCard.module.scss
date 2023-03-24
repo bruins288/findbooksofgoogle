@@ -1,27 +1,35 @@
 .booksCard {
   flex-direction: row;
   margin: 10px 10px 30px;
-  max-width: 175px;
+  width: 150px;
   box-sizing: content-box;
-  padding: 60px 60px 30px 60px;
+  padding: 25px 25px 10px 25px;
   background-color: rgb(184, 184, 184);
+  height: 18rem;
 
   &_img {
-    text-align: center;
-    box-shadow: 7px 5px 20px rgba(0, 0, 0, 0.8);
-    height: 68%;
+    box-shadow: 20px 0px 10px rgba(0, 0, 0, 0.8);
+    width: 90px;
+    height: 48%;
+    padding-left: 20px;
   }
   &_info {
-    margin-top: 20px;
+    margin-top: 25px;
     padding: 0px;
     .booksDetail {
-      span,
+      span:first-child,
       strong {
         display: block;
+        font-size: 12px;
+        margin: 3px;
       }
       span {
         opacity: 0.4;
         text-align: center;
+        font-size: 12px;
+      }
+      span:last-child {
+        display: block;
       }
     }
   }

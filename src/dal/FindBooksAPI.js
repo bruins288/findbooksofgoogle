@@ -23,6 +23,9 @@ export default class FindBooksAPI {
     return this.#url;
   }
   _getSearchParams(query) {
+    if (query.length === 1) {
+      throw new Error("there should be more characters");
+    }
     return query.replace(/ +/g, " ").trim().split(" ").join("+");
   }
   async _getFindBooksJSON() {
@@ -45,17 +48,28 @@ export default class FindBooksAPI {
       findBooks.infoBooks = items.map((item) => {
         return {
           id: item.id,
-          authors: item.volumeInfo.authors,
-          categories: item.volumeInfo.categories,
-          description: item.volumeInfo.description,
-          imageLinks: item.volumeInfo.imageLinks,
-          language: item.volumeInfo.language,
-          publishedDate: item.volumeInfo.publishedDate,
-          publisher: item.volumeInfo.publisher,
-          subtitle: item.volumeInfo.subtitle,
-          title: item.volumeInfo.title,
+          authors: item.volumeInfo.authors ?? ["unknown"],
+          categories: item.volumeInfo.categories ?? ["unknown"],
+          description: item.volumeInfo.description ?? "no description",
+          imageLinks:
+            item.volumeInfo.imageLinks ?? "https://via.placeholder.com/128x187",
+          language: item.volumeInfo.language ?? "unknown",
+          publishedDate: item.volumeInfo.publishedDate ?? "no date",
+          publisher: item.volumeInfo.publisher ?? "no publisher",
+          subtitle: item.volumeInfo.subtitle ?? "unknown",
+          title: item.volumeInfo.title ?? "no title",
         };
       });
+
+      for (let i = 0; i < findBooks.infoBooks.length; i++) {
+        for (let j = 1; j < findBooks.infoBooks.length - 1; j++) {
+          if (findBooks.infoBooks[i].id === findBooks.infoBooks[j].id) {
+            findBooks.infoBooks.splice(i, 1);
+            findBooks.totalBooks--;
+          }
+        }
+      }
+
       return findBooks;
     } catch (error) {
       console.log(error.message);
