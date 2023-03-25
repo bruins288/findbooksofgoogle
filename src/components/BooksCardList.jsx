@@ -44,7 +44,7 @@ const BooksCardList = observer(() => {
             />
           ))
         : booksStore.status === status.SUCCESS && <h3>Book not found!</h3>}
-      {booksStore.status === status.SUCCESS && (
+      {booksStore.status === status.SUCCESS && booksStore.total > 0 && (
         <ShowButton clickButton={handlerButtonClick} />
       )}
     </React.Fragment>
