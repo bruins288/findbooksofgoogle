@@ -11,22 +11,22 @@ import "../scss/header.scss";
 import { sortCategory, sortType } from "../constants/data";
 
 const Header = observer(() => {
-  const { findBooksStore } = useContext(Context);
+  const { booksStore } = useContext(Context);
 
-  const onChangeSorted = (sortedType) => {
-    let sorted = sortedType === "relevance" ? null : sortedType;
-    findBooksStore.setUrlSearch(
-      findBooksStore.query,
-      findBooksStore.searchCategory,
-      sorted
+  const handlerChangeOrderBy = (orderByType) => {
+    let orderBy = orderByType === "relevance" ? null : orderByType;
+    booksStore.setUrlSearch(
+      booksStore.query,
+      booksStore.searchCategory,
+      orderBy
     );
   };
-  const onChangeFiltered = (filteredType) => {
-    let filtered = filteredType === "all" ? "" : filteredType;
-    findBooksStore.setUrlSearch(
-      findBooksStore.query,
-      filtered,
-      findBooksStore.searchFiltered
+  const handlerChangeCategories = (categoriesType) => {
+    let categories = categoriesType === "all" ? "" : categoriesType;
+    booksStore.setUrlSearch(
+      booksStore.query,
+      categories,
+      booksStore.searchOrderBy
     );
   };
 
@@ -36,10 +36,13 @@ const Header = observer(() => {
       <Search />
       <div className="sort">
         <div className="sort__category">
-          <SortType list={sortCategory} onChangeFilter={onChangeFiltered} />
+          <SortType
+            list={sortCategory}
+            changeCategories={handlerChangeCategories}
+          />
         </div>
         <div className="sort__type">
-          <SortType list={sortType} onChangeSort={onChangeSorted} />
+          <SortType list={sortType} changeOrderBy={handlerChangeOrderBy} />
         </div>
       </div>
     </header>

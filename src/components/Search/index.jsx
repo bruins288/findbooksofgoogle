@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import { Context } from "../../index";
@@ -7,32 +8,33 @@ import styles from "./Search.module.scss";
 
 const Search = observer(() => {
   const [searchInput, setSearchInput] = React.useState("");
-  const { findBooksStore } = React.useContext(Context);
+  const { booksStore } = React.useContext(Context);
+  const navigate = useNavigate();
 
   const updateSearchValue = () => {
+    navigate("/");
     if (searchInput.length > 1) {
-      findBooksStore.setUrlSearch(
+      booksStore.setUrlSearch(
         searchInput.trim().replace(/ +/g, " "),
-        0,
-        findBooksStore.searchCategory,
-        findBooksStore.searchFiltered
+        booksStore.searchCategory,
+        booksStore.searchOrderBy
       );
-      findBooksStore.setStatusWait();
-      findBooksStore.getFindBooksAsync();
+      booksStore.setStatusWait();
+      booksStore.getBooksAsyncAwait();
     }
   };
   const changeSearchValue = (str) => {
     setSearchInput(str);
-    findBooksStore.setUrlSearch(
+    booksStore.setUrlSearch(
       str,
-      findBooksStore.searchCategory,
-      findBooksStore.searchFiltered
+      booksStore.searchCategory,
+      booksStore.searchFiltered
     );
-    findBooksStore.setStatusWait();
+    booksStore.setStatusWait();
   };
   const onKeyDownEnter = (ev) => {
     if (ev.keyCode === 13) {
-      findBooksStore.setStatusWait();
+      booksStore.setStatusWait();
       updateSearchValue();
     }
   };

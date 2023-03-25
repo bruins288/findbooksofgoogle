@@ -3,10 +3,10 @@ import React from "react";
 /*custom styles */
 import styles from "./SortType.module.scss";
 
-const SortType = ({ list, onChangeFilter, onChangeSort }) => {
-  const onChangeHandler = (str) => {
-    if (onChangeFilter) onChangeFilter(str);
-    else onChangeSort(str);
+function SortType({ list, changeCategories, changeOrderBy }) {
+  const onChange = (str) => {
+    if (changeCategories) changeCategories(str);
+    else changeOrderBy(str);
   };
   return (
     <div className={styles.sortedChoose}>
@@ -15,7 +15,7 @@ const SortType = ({ list, onChangeFilter, onChangeSort }) => {
         name="SelectChoose"
         required="required"
         className={styles.sortSelect}
-        onChange={(e) => onChangeHandler(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       >
         {list.items.map((item) => (
           <option key={item.name}>{item.name}</option>
@@ -23,6 +23,6 @@ const SortType = ({ list, onChangeFilter, onChangeSort }) => {
       </select>
     </div>
   );
-};
+}
 
 export default SortType;

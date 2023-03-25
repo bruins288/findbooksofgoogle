@@ -2,14 +2,14 @@ import React from "react";
 
 import styles from "./ShowButton.module.scss";
 
-function ShowButton({ handlerClick }) {
+function ShowButton({ clickButton }) {
   return (
     <div className={styles.bookCardBottom}>
       <button
         className={
           styles.button + " " + styles.button_outline + " " + styles.button_add
         }
-        onClick={() => handlerClick(true)}
+        onClick={() => clickButton(true)}
       >
         <svg
           width="12"

@@ -14,3 +14,65 @@
     font-size: 16px;
   }
 }
+.notFound {
+  text-align: center;
+  padding: 100px;
+  h1 {
+    font-size: 30px;
+  }
+  p {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+}
+/*content for details */
+.bookCardLarge {
+  display: flex;
+  margin: 10px 10px 30px;
+  width: calc(100vw - 120px);
+  box-sizing: content-box;
+  padding: 25px 25px 10px 25px;
+  &_img {
+    box-shadow: 20px 0px 10px rgba(0, 0, 0, 0.8);
+    width: 260px;
+    height: 400px;
+    padding-left: 20px;
+    margin-right: 200px;
+  }
+  &_info {
+    margin-top: 18px;
+    padding: 0px;
+    h4 {
+      font-size: 16px;
+      opacity: 0.6;
+      margin-bottom: 15px;
+      width: 95%;
+    }
+    &_title {
+      text-align: left;
+      max-height: 137px;
+      font-weight: 600;
+      font-size: 30px;
+      text-align: center;
+    }
+    &_dop {
+      text-align: left;
+      opacity: 0.8;
+      font-size: 18px;
+      margin-top: 5px;
+      text-align: center;
+      span:last-child {
+        margin-top: 5px;
+        display: block;
+        opacity: 0.8;
+        font-size: 16px;
+      }
+    }
+    &_des {
+      margin-top: 10px;
+      font-size: 16px;
+      text-indent: 50px;
+      text-align: justify;
+    }
+  }
+}

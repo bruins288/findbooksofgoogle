@@ -1,17 +1,24 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 
+/*Layout */
+import MainLayout from "./Layouts/MainLayout";
 /*custom components */
-import Header from "./components/Header";
+import ContentDetails from "./pages/ContentDetails";
+import NotFound from "./pages/NotFound";
 import MainContent from "./pages/MainContent.jsx";
 /*custom styles */
 import "./App.scss";
 
 function App() {
   return (
-    <div className="wrapper">
-      <Header />
-      <MainContent />
-    </div>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<MainContent />} />
+        <Route path="Book/:id" element={<ContentDetails />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
 
