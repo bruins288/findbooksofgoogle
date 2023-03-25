@@ -2,7 +2,7 @@ import React from "react";
 /*MobX */
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
-import { status } from "../mobx/BooksStore";
+import { status } from "../utils/data";
 
 /*custom component */
 import BooksCardList from "../components/BooksCardList";

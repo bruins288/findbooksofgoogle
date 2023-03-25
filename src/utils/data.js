@@ -41,4 +41,16 @@ export const bookStyles = {
     },
   },
 };
-
+export const enumUrlParams = {
+  paramQuery: "q",
+  paramCategory: "subject",
+  paramOrderBy: "orderBy",
+  startIndex: "startIndex",
+  maxResults: "maxResults",
+};
+export const status = {
+  WAIT: "wait",
+  LOADING: "loading",
+  SUCCESS: "success",
+  ERROR: "error",
+};

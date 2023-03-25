@@ -1,13 +1,7 @@
+import { enumUrlParams } from "../utils/data";
+
 const BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 const MAX_RESULT = 30;
-
-const enumUrlParams = {
-  paramQuery: "q",
-  paramCategory: "subject",
-  paramOrderBy: "orderBy",
-  startIndex: "startIndex",
-  maxResults: "maxResults",
-};
 
 class BooksAPI {
   constructor() {

@@ -12,32 +12,45 @@ function BookCard({
   imageLinks,
   publishedDate,
   title,
+  description,
+  classes,
 }) {
   let image = Utils.getImage(imageLinks);
+
   return (
-    <div className={styles.bookCard}>
-      <div className={styles.bookCard_img}>
+    <div className={styles[`${classes.bookCard}`]}>
+      <div className={styles[`${classes.bookCardList.img}`]}>
         <Link to={`/Book/${id}`}>
           <img
             src={image}
             alt="book"
-            style={{ width: "100px", height: "150px" }}
+            style={{
+              width: `${classes.size.width}`,
+              height: `${classes.size.height}`,
+            }}
           />
         </Link>
       </div>
-      <div className={styles.bookCard_info}>
+      <div className={styles[`${classes.bookCardList.info}`]}>
         <h4>
           {categories.map((category) => (
             <span key={category}>{category}</span>
           ))}
         </h4>
-        <p className={styles.bookCard_info_title}>{title}</p>
-        <p className={styles.bookCard_info_dop}>
+        <p className={styles[`${classes.bookCardList.infoList.title}`]}>
+          {title}
+        </p>
+        <p className={styles[`${classes.bookCardList.infoList.dop}`]}>
           {authors.map((author) => (
             <span key={author}>{author + ", "}</span>
           ))}
           <span>published:{publishedDate}</span>
         </p>
+        {classes.bookCardList.infoList.des && (
+          <p className={styles[`${classes.bookCardList.infoList.des}`]}>
+            {description}
+          </p>
+        )}
       </div>
     </div>
   );

@@ -3,21 +3,17 @@ import {
   configure,
   makeObservable,
   observable,
+  override,
   runInAction,
 } from "mobx";
+import AsyncStatusLoad from "./AsyncStatusLoad";
 
 import BooksAPI from "../dal/BooksAPI";
 configure({ enforceActions: "observed" });
 
-export const status = {
-  WAIT: "wait",
-  LOADING: "loading",
-  SUCCESS: "success",
-  ERROR: "error",
-};
-
-export default class BooksStore {
+export default class BooksStore extends AsyncStatusLoad {
   constructor() {
+    super();
     this.booksList = { total: 0, info: [] };
     this.book = {};
     this.query = "";
@@ -25,25 +21,23 @@ export default class BooksStore {
     this.searchOrderBy = null;
     this.startIndex = 0;
     this.isMoreLoading = false;
-    this.status = status.WAIT;
     makeObservable(this, {
       booksList: observable,
       query: observable,
       searchCategory: observable,
       searchOrderBy: observable,
       startIndex: observable,
-      status: observable,
       isMoreLoading: observable,
       setBook: action,
       setBooks: action,
       setUrlSearch: action,
-      setStatusWait: action,
-      setStatusLoading: action,
-      setStatusSuccess: action,
-      setStatusError: action,
+      setStatusWait: override,
+      setStatusLoading: override,
+      setStatusSuccess: override,
+      setStatusError: override,
       incrementStartIndex: action,
       setMoreLoading: action,
-      getBookById: action.bound,
+      getBookById: action,
     });
   }
   setBooks = (apiData) => {
@@ -63,18 +57,7 @@ export default class BooksStore {
     this.searchOrderBy = searchOrderBy;
     this.startIndex = startIndex;
   }
-  setStatusWait() {
-    this.status = status.WAIT;
-  }
-  setStatusLoading() {
-    this.status = status.LOADING;
-  }
-  setStatusSuccess() {
-    this.status = status.SUCCESS;
-  }
-  setStatusError() {
-    this.status = status.ERROR;
-  }
+
   incrementStartIndex() {
     this.startIndex += 1;
   }
@@ -92,7 +75,7 @@ export default class BooksStore {
       this.startIndex
     );
     try {
-      this.setStatusLoading();
+      super.setStatusLoading();
       const data = await BooksAPI.fetchBooksAsyncAwaitAPI();
       runInAction(() => {
         if (!this.isMoreLoading) {
@@ -101,24 +84,24 @@ export default class BooksStore {
           this.booksList.info = [...this.booksList.info, ...data.info];
         }
       });
-      this.setStatusSuccess();
+      super.setStatusSuccess();
       this.setMoreLoading(false);
     } catch (error) {
       console.log(error.message);
-      this.setStatusError();
+      super.setStatusError();
     }
   };
   getBookByIdAsyncAwait = async (id) => {
     try {
-      this.setStatusLoading();
+      super.setStatusLoading();
       const data = await BooksAPI.fetchBookByIdAsyncAwaitAPI(id);
       runInAction(() => {
         this.setBook(data);
       });
-      this.setStatusSuccess();
+      super.setStatusSuccess();
     } catch (error) {
       console.log(error.message);
-      this.setStatusError();
+      super.setStatusError();
     }
   };
 }

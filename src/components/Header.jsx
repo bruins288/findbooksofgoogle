@@ -8,7 +8,7 @@ import SortType from "./SortType";
 /*custom styles */
 import "../scss/header.scss";
 /*constants data */
-import { sortCategory, sortType } from "../constants/data";
+import { sortCategory, sortType } from "../utils/data";
 
 const Header = observer(() => {
   const { booksStore } = useContext(Context);
