@@ -3,7 +3,6 @@ import {
   configure,
   makeObservable,
   observable,
-  override,
   runInAction,
 } from "mobx";
 import AsyncStatusLoad from "./AsyncStatusLoad";
@@ -32,10 +31,6 @@ export default class BooksStore extends AsyncStatusLoad {
       setBook: action,
       setBooks: action,
       setUrlSearch: action,
-      setStatusWait: override,
-      setStatusLoading: override,
-      setStatusSuccess: override,
-      setStatusError: override,
       incrementStartIndex: action,
       setMoreLoading: action,
       getBookById: action,
