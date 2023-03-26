@@ -15,27 +15,32 @@ const BooksCardList = observer(() => {
   const { booksStore } = React.useContext(Context);
 
   React.useEffect(() => {
-    if (booksStore.isMoreLoading) {
-      booksStore.incrementStartIndex();
-      booksStore.setUrlSearch(
-        booksStore.query,
-        booksStore.searchCategory,
-        booksStore.searchOrderBy,
-        booksStore.startIndex
-      );
-      booksStore.setStatusWait();
-      booksStore.getBooksAsyncAwait();
+    if (booksStore.booksList.total !== booksStore.booksList.info.length) {
+      if (booksStore.isMoreLoading) {
+        booksStore.incrementStartIndex();
+        booksStore.setUrlSearch(
+          booksStore.query,
+          booksStore.searchCategory,
+          booksStore.searchOrderBy,
+          booksStore.startIndex
+        );
+        booksStore.setStatusWait();
+        booksStore.getBooksAsyncAwait();
+      }
     }
   }, [booksStore, booksStore.isMoreLoading]);
 
   const handlerButtonClick = (isDown) => {
     booksStore.setMoreLoading(isDown);
   };
+
   return (
     <React.Fragment>
       {booksStore.status === status.LOADING
         ? [...new Array(8)].map((_, index) => <Skeleton key={index} />)
-        : booksStore.status === status.SUCCESS && booksStore.booksList.total > 0
+        : (booksStore.status === status.SUCCESS &&
+            booksStore.booksList.total > 0) ||
+          status.FINISH
         ? booksStore.booksList.info.map((infoBook, index) => (
             <BookCard
               key={infoBook.id + index}
@@ -43,8 +48,8 @@ const BooksCardList = observer(() => {
               {...infoBook}
             />
           ))
-        : booksStore.status === status.SUCCESS && <h3>Book not found!</h3>}
-      {booksStore.status === status.SUCCESS && booksStore.total > 0 && (
+        : booksStore.status === status.ERROR && <h3>Book not found!</h3>}
+      {booksStore.status === status.SUCCESS && (
         <ShowButton clickButton={handlerButtonClick} />
       )}
     </React.Fragment>

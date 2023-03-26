@@ -9,6 +9,7 @@ import {
 import AsyncStatusLoad from "./AsyncStatusLoad";
 
 import BooksAPI from "../dal/BooksAPI";
+
 configure({ enforceActions: "observed" });
 
 export default class BooksStore extends AsyncStatusLoad {
@@ -57,7 +58,6 @@ export default class BooksStore extends AsyncStatusLoad {
     this.searchOrderBy = searchOrderBy;
     this.startIndex = startIndex;
   }
-
   incrementStartIndex() {
     this.startIndex += 1;
   }
@@ -84,11 +84,18 @@ export default class BooksStore extends AsyncStatusLoad {
           this.booksList.info = [...this.booksList.info, ...data.info];
         }
       });
+      if (this.booksList.total <= this.booksList.info.length) {
+        throw new Error("finished");
+      }
+      if (this.booksList.total === undefined) {
+        throw new Error("not found");
+      }
+
       super.setStatusSuccess();
       this.setMoreLoading(false);
     } catch (error) {
-      console.log(error.message);
-      super.setStatusError();
+      if (error.message === "finished") super.setStatusFinish();
+      else super.setStatusError();
     }
   };
   getBookByIdAsyncAwait = async (id) => {

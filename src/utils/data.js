@@ -53,4 +53,5 @@ export const status = {
   LOADING: "loading",
   SUCCESS: "success",
   ERROR: "error",
+  FINISH: "finish",
 };
