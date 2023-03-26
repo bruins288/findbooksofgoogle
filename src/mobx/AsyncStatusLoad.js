@@ -12,7 +12,6 @@ export default class AsyncStatusLoad {
       setStatusLoading: action,
       setStatusSuccess: action,
       setStatusError: action,
-      setStatusFinish: action,
     });
   }
 
@@ -27,8 +26,5 @@ export default class AsyncStatusLoad {
   }
   setStatusError() {
     this.status = status.ERROR;
-  }
-  setStatusFinish() {
-    this.status = status.FINISH;
   }
 }

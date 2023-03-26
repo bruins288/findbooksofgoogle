@@ -14,10 +14,9 @@ const MainContent = observer(() => {
 
   return (
     <main className="content">
-      {(booksStore.status === status.SUCCESS || status.FINISH) &&
-        booksStore.booksList.total && (
-          <p className="found-book">{`Found: ${booksStore.booksList.total} results`}</p>
-        )}
+      {booksStore.status === status.SUCCESS && booksStore.booksList.total && (
+        <p className="found-book">{`Found: ${booksStore.booksList.total} results`}</p>
+      )}
       <BooksCardList />
     </main>
   );

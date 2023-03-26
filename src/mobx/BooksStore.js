@@ -79,9 +79,6 @@ export default class BooksStore extends AsyncStatusLoad {
           this.booksList.info = [...this.booksList.info, ...data.info];
         }
       });
-      if (this.booksList.total <= this.booksList.info.length) {
-        throw new Error("finished");
-      }
       if (this.booksList.total === undefined) {
         throw new Error("not found");
       }
@@ -89,8 +86,7 @@ export default class BooksStore extends AsyncStatusLoad {
       super.setStatusSuccess();
       this.setMoreLoading(false);
     } catch (error) {
-      if (error.message === "finished") super.setStatusFinish();
-      else super.setStatusError();
+      super.setStatusError();
     }
   };
   getBookByIdAsyncAwait = async (id) => {
